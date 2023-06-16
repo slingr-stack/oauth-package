@@ -65,12 +65,14 @@
     {
       "name": "accessToken",
       "label": "Access token",
-      "type": "text"
+      "type": "text",
+      "visibility": false
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
-      "type": "text"
+      "type": "text",
+      "visibility": false
     }
   ],
   "events": [
