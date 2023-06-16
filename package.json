@@ -1,0 +1,154 @@
+{
+  "name": "oauth",
+  "label": "OAuth Package",
+  "dependencies": [
+    {
+      "type": "service",
+      "name": "http",
+      "version": "v1.1.5",
+      "instanceId": "shared"
+    }
+  ],
+  "configuration": [
+    {
+      "name": "authenticationMethod",
+      "label": "Authentication Method",
+      "required": true,
+      "defaultValue": "oAuth2",
+      "type": "buttonsGroup",
+      "typeOptions": {
+        "allowCustom": false,
+        "possibleValues": [
+          {
+            "label": "OAuth 1.0",
+            "name": "oAuth"
+          },
+          {
+            "label": "OAuth 2.0",
+            "name": "oAuth2"
+          }
+        ]
+      }
+    },
+    {
+      "name": "authenticationOAuth2Type",
+      "label": "Authentication Method OAuth 2.0 Type",
+      "defaultValue": "oAuth2",
+      "type": "buttonsGroup",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'",
+      "typeOptions": {
+        "allowCustom": false,
+        "possibleValues": [
+          {
+            "label": "Per user",
+            "name": "perUSer"
+          },
+          {
+            "label": "application",
+            "name": "Application"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Auth URL",
+      "name": "authUrl",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "label": "Access Token URL",
+      "name": "accessTokenUrl",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "label": "Client Id",
+      "name": "clientId",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "label": "Client Secret",
+      "name": "clientSecret",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "label": "Scope",
+      "name": "scope",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "label": "State",
+      "name": "state",
+      "type": "text",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "name": "requestToken",
+      "label": "Request token",
+      "type": "oauth2",
+      "visibility": "config.authenticationMethod == 'oAuth2' && authenticationOAuth2Type == application",
+      "required": "config.authenticationMethod == 'oAuth2' && authenticationOAuth2Type == application",
+      "typeOptions": {
+        "clientId": "config.clientId",
+        "clientSecret": "config.clientSecret",
+        "authUrl": "config.authUrl",
+        "accessTokenUrl": "config.accessTokenUrl",
+        "scope": "config.scope",
+        "grantType": "'authorization_code'",
+        "accessToken": "@config.accessToken",
+        "refreshToken": "@config.refreshToken"
+      }
+    },
+    {
+      "label": "Callback URL",
+      "name": "callbackURL",
+      "description": "The OAuth callback to configure in your GitHub App",
+      "type": "label",
+      "value": "config.WEBHOOK_URL+'/authCallback'",
+      "required": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oAuth2'"
+    },
+    {
+      "name": "accessToken",
+      "label": "Access token",
+      "type": "text",
+      "visibility": "config.authenticationMethod == 'oAuth2' && authenticationOAuth2Type == application"
+    },
+    {
+      "name": "refreshToken",
+      "label": "Refresh token",
+      "type": "text",
+      "visibility": "config.authenticationMethod == 'oAuth2' && authenticationOAuth2Type == application"
+    }
+  ],
+  "events": [
+    {
+      "label": "Webhook",
+      "name": "webhook",
+      "description": "Happens when SharePoint sends a webhook to the endpoint."
+    }
+  ],
+  "metadata": [
+    {
+      "type": "script",
+      "namespace": "api",
+      "path": "/scripts/functions.js"
+    },
+    {
+      "type": "uiService",
+      "namespace": "oAuth",
+      "path": "/uiServices/oAuth"
+    }
+  ]
+}
