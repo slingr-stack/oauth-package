@@ -60,7 +60,7 @@
       "name": "callbackUrl",
       "description": "The OAuth callback to configure in your GitHub App",
       "type": "label",
-      "value": "@config.WEBHOOK_URL+'/authCallback'"
+      "value": "@config.WEBHOOK_URL"
     },
     {
       "name": "accessToken",
