@@ -154,7 +154,7 @@ var parse = function (str) {
  ****************************************************/
 exports.connectUser = function () {
     sys.ui.sendMessage({
-        scope: 'uiService:oauth.oAuth2',
+        scope: 'uiService:oauth.oAuth',
         name: 'connectUser',
         config: {
             authUrl: config.get("authUrl"),
