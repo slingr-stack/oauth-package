@@ -1,8 +1,8 @@
 {
-  "name": "oAuth",
+  "name": "oAuth2",
   "label": {
     "translation": {
-      "en": "oAuth"
+      "en": "oAuth2"
     }
   },
   "places": [

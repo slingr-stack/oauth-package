@@ -154,7 +154,7 @@ var parse = function (str) {
  ****************************************************/
 exports.connectUser = function () {
     sys.ui.sendMessage({
-        scope: 'uiService:sharepoint.oAuth',
+        scope: 'uiService:oauth.oAuth2',
         name: 'connectUser',
         config: {
             authUrl: config.get("authUrl"),
@@ -192,65 +192,4 @@ exports.connectUser = function () {
             }
         }
     });
-}
-
-/****************************************************
- Constants
- ****************************************************/
-
-var SHAREPOINT_API_BASE_URL = "https://graph.microsoft.com"; // TODO: Set the base url
-var API_URL = SHAREPOINT_API_BASE_URL + ""; // TODO: Set the base url for the api
-
-/****************************************************
- Configurator
- ****************************************************/
-
-var Sharepoint = function (options) {
-    options = options || {};
-    options = setApiUri(options);
-    options = setRequestHeaders(options);
-    options = setAuthorization(options);
-    return options;
-}
-
-/****************************************************
- Private API
- ****************************************************/
-
-function setApiUri(options) {
-    var url = options.path || "";
-    options.url = API_URL + url;
-    sys.logs.debug('[sharepoint] Set url: ' + options.path + "->" + options.url);
-    delete options.path;
-    return options;
-}
-
-function setRequestHeaders(options) {
-    var headers = options.headers || {};
-    headers = mergeJSON(headers, {"Content-Type": "application/json"});
-    options.headers = headers;
-    return options;
-}
-
-function setAuthorization(options) {
-    var authorization = options.authorization || {};
-    authorization = mergeJSON(authorization, {
-        type: "oauth2",
-        accessToken: sys.storage.get(sys.context.getCurrentUserRecord().id() +' - access_token'),
-        headerPrefix: "Bearer"
-    });
-    options.authorization = authorization;
-    return options;
-}
-
-function mergeJSON(json1, json2) {
-    const result = {};
-    var key;
-    for (key in json1) {
-        if (json1.hasOwnProperty(key)) result[key] = json1[key];
-    }
-    for (key in json2) {
-        if (json2.hasOwnProperty(key)) result[key] = json2[key];
-    }
-    return result;
 }
