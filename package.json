@@ -41,6 +41,20 @@
       "type": "text"
     },
     {
+      "label": "OAuth callback",
+      "name": "oauthCallback",
+      "description": "The OAuth callback to configure in your App",
+      "type": "label",
+      "value": "config.WEBHOOK_URL+'/authCallback'"
+    },
+    {
+      "name": "webhooksUrl",
+      "label": "Webhooks URL",
+      "description": "The URL to configure in webhooks of your GitHub App",
+      "type": "label",
+      "value": "@config.WEBHOOK_URL"
+    },
+    {
       "name": "requestToken",
       "label": "Request token",
       "type": "oauth2",
@@ -54,13 +68,6 @@
         "accessToken": "@config.accessToken",
         "refreshToken": "@config.refreshToken"
       }
-    },
-    {
-      "label": "Callback URL",
-      "name": "callbackUrl",
-      "description": "The OAuth callback to configure in your GitHub App",
-      "type": "label",
-      "value": "@config.WEBHOOK_URL"
     },
     {
       "name": "accessToken",

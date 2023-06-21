@@ -163,7 +163,7 @@ exports.connectUser = function () {
             clientSecret: config.get("clientSecret"),
             scope: config.get("scope"),
             state: config.get("state"),
-            callbackUrl: config.get("callbackUrl"),
+            oauthCallback: config.get("oauthCallback"),
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
@@ -179,7 +179,7 @@ exports.connectUser = function () {
                         client_id: config.clientId,
                         client_secret: config.clientSecret,
                         code: config.code,
-                        redirect_uri: config.redirect_uri,
+                        redirect_uri: config.oauthCallback,
                         grant_type: "authorization_code"
                     }
                 });
