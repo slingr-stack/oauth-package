@@ -124,7 +124,6 @@
       "name": "requestToken",
       "label": "Request token",
       "type": "oAuth2",
-      "visibility": "config.authenticationMethod == 'oAuth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
