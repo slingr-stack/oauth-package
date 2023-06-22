@@ -29,7 +29,7 @@
           },
           {
             "label": "OAuth 2.0",
-            "name": "oAuth2"
+            "name": "oauth2"
           }
         ]
       }
@@ -40,7 +40,7 @@
       "required": true,
       "defaultValue": "userAuthentication",
       "type": "buttonsGroup",
-      "visibility": "config.authenticationMethod == 'oAuth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'",
       "typeOptions": {
         "allowCustom": false,
         "possibleValues": [
@@ -66,43 +66,43 @@
       "label": "Auth URL",
       "name": "authUrl",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "Access Token URL",
       "name": "accessTokenUrl",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "Client Id",
       "name": "clientId",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "Client Secret",
       "name": "clientSecret",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "Scope",
       "name": "scope",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "State",
       "name": "state",
       "type": "text",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "label": "OAuth callback",
@@ -110,8 +110,8 @@
       "description": "The OAuth callback to configure in your App",
       "type": "label",
       "value": "config.WEBHOOK_URL+'/authCallback'",
-      "required": "config.authenticationMethod == 'oAuth2'",
-      "visibility": "config.authenticationMethod == 'oAuth2'"
+      "required": "config.authenticationMethod == 'oauth2'",
+      "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
       "name": "webhooksUrl",
@@ -124,6 +124,7 @@
       "name": "requestToken",
       "label": "Request token",
       "type": "oAuth2",
+      "visibility": "config.authenticationMethod == 'oauth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
@@ -140,14 +141,14 @@
       "label": "Access token",
       "type": "label",
       "value": "@config.accessToken",
-      "visibility": "config.authenticationMethod == 'oAuth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
+      "visibility": "config.authenticationMethod == 'oauth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
       "type": "label",
       "value": "@config.refreshToken",
-      "visibility": "config.authenticationMethod == 'oAuth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
+      "visibility": "config.authenticationMethod == 'oauth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
     }
   ],
   "events": [
