@@ -11,6 +11,26 @@
   ],
   "configuration": [
     {
+      "name": "authenticationMethod",
+      "label": "Authentication Method",
+      "required": true,
+      "defaultValue": "oAuth2",
+      "type": "buttonsGroup",
+      "typeOptions": {
+        "allowCustom": false,
+        "possibleValues": [
+          {
+            "label": "User Authentication",
+            "name": "userAuthentication"
+          },
+          {
+            "label": "Application Authentication",
+            "name": "applicationAuthentication"
+          }
+        ]
+      }
+    },
+    {
       "label": "Auth URL",
       "name": "authUrl",
       "type": "text"
@@ -58,6 +78,7 @@
       "name": "requestToken",
       "label": "Request token",
       "type": "oauth2",
+      "visibility": "config.authenticationMethod == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
@@ -72,12 +93,16 @@
     {
       "name": "accessToken",
       "label": "Access token",
-      "type": "text"
+      "type": "text",
+      "value": "@config.accessToken",
+      "visibility": "config.authenticationMethod == 'applicationAuthentication'"
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
-      "type": "text"
+      "type": "text",
+      "value": "@config.refreshToken",
+      "visibility": "config.authenticationMethod == 'applicationAuthentication'"
     }
   ],
   "events": [
