@@ -139,14 +139,14 @@
     {
       "name": "accessToken",
       "label": "Access token",
-      "type": "text",
+      "type": "label",
       "value": "@config.accessToken",
       "visibility": "config.authenticationMethod == 'oAuth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
-      "type": "text",
+      "type": "label",
       "value": "@config.refreshToken",
       "visibility": "config.authenticationMethod == 'oAuth2' && config.oAuth2AuthenticationType == 'applicationAuthentication'"
     }
