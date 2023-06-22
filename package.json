@@ -107,7 +107,7 @@
     {
       "name": "requestToken",
       "label": "Request token",
-      "type": "oauth2",
+      "type": "oAuth2",
       "visibility": "config.authenticationMethod == 'oauth2'",
       "typeOptions": {
         "clientId": "config.clientId",
