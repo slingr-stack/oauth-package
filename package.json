@@ -107,13 +107,14 @@
     {
       "name": "requestToken",
       "label": "Request token",
-      "type": "oAuth2",
+      "type": "oauth2",
+      "visibility": "config.authenticationMethod == 'oauth2'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
-        "authUrl": "config.authUrl",
-        "accessTokenUrl": "config.accessTokenUrl",
-        "scope": "config.scope",
+        "authUrl": "'https://app.pandadoc.com/oauth2/authorize'",
+        "accessTokenUrl": "'https://api.pandadoc.com/oauth2/access_token'",
+        "scope": "'read+write'",
         "grantType": "'authorization_code'",
         "accessToken": "@config.accessToken",
         "refreshToken": "@config.refreshToken"
