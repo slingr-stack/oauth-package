@@ -19,7 +19,7 @@ exports.connectUser = function () {
                 var config = callbackData;
                 sys.logs.error('Code: ' + JSON.stringify(config.code));
                 var res = svc.http.post({
-                    url: config.authURL,
+                    url: config.authUrl,
                     headers: {
                         Accept: "application/json",
                         "Content-Type": "application/x-www-form-urlencoded"
