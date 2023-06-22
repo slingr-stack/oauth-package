@@ -105,6 +105,21 @@
       "visibility": "config.authenticationMethod == 'oauth2'"
     },
     {
+      "name": "requestToken",
+      "label": "Request token",
+      "type": "oAuth2",
+      "typeOptions": {
+        "clientId": "config.clientId",
+        "clientSecret": "config.clientSecret",
+        "authUrl": "config.authUrl",
+        "accessTokenUrl": "config.accessTokenUrl",
+        "scope": "config.scope",
+        "grantType": "'authorization_code'",
+        "accessToken": "@config.accessToken",
+        "refreshToken": "@config.refreshToken"
+      }
+    },
+    {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
@@ -124,6 +139,7 @@
       "name": "requestToken",
       "label": "Request token",
       "type": "oAuth2",
+      "visibility": "config.authenticationMethod == 'oauth1' && config.oAuth2AuthenticationType == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
