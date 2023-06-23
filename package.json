@@ -77,20 +77,6 @@
       }
     },
     {
-      "name": "accessToken",
-      "label": "Access token",
-      "type": "label",
-      "value": "@config.accessToken",
-      "visibility": "!!config.accessToken && config.authenticationType == 'applicationAuthentication'"
-    },
-    {
-      "name": "refreshToken",
-      "label": "Refresh token",
-      "type": "label",
-      "value": "@config.refreshToken",
-      "visibility": "!!config.accessToken && config.authenticationType == 'applicationAuthentication'"
-    },
-    {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
