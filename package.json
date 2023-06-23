@@ -11,7 +11,7 @@
   ],
   "configuration": [
     {
-      "name": "oAuth2AuthenticationType",
+      "name": "authenticationType",
       "label": "OAuth 2.0 Authentication Type",
       "required": true,
       "defaultValue": "userAuthentication",
@@ -34,43 +34,50 @@
     {
       "name": "apiKey",
       "label": "API Key",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "Auth URL",
       "name": "authUrl",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "Access Token URL",
       "name": "accessTokenUrl",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "Client Id",
       "name": "clientId",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "Client Secret",
       "name": "clientSecret",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "Scope",
       "name": "scope",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "label": "State",
       "name": "state",
-      "type": "text"
+      "type": "text",
+      "visibility": "config.authenticationType == 'userAuthentication'"
     },
     {
       "name": "requestToken",
       "label": "Request token",
       "type": "oauth2",
-      "visibility": "config.oAuth2AuthenticationType == 'applicationAuthentication'",
+      "visibility": "config.authenticationType == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
@@ -87,14 +94,14 @@
       "label": "Access token",
       "type": "label",
       "value": "@config.accessToken",
-      "visibility": "config.oAuth2AuthenticationType == 'applicationAuthentication'"
+      "visibility": "config.authenticationType == 'applicationAuthentication'"
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
       "type": "label",
       "value": "@config.refreshToken",
-      "visibility": "config.oAuth2AuthenticationType == 'applicationAuthentication'"
+      "visibility": "config.authenticationType == 'applicationAuthentication'"
     },
     {
       "label": "OAuth callback",
