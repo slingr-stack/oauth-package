@@ -16,7 +16,6 @@
       "required": true,
       "defaultValue": "userAuthentication",
       "type": "buttonsGroup",
-      "visibility": "config.authenticationMethod == 'oauth2'",
       "typeOptions": {
         "allowCustom": false,
         "possibleValues": [
@@ -32,46 +31,34 @@
       }
     },
     {
-      "name": "apiKey",
-      "label": "API Key",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
-    },
-    {
       "label": "Auth URL",
       "name": "authUrl",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "label": "Access Token URL",
       "name": "accessTokenUrl",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "label": "Client Id",
       "name": "clientId",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "label": "Client Secret",
       "name": "clientSecret",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "label": "Scope",
       "name": "scope",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "label": "State",
       "name": "state",
-      "type": "text",
-      "visibility": "config.authenticationType == 'userAuthentication'"
+      "type": "text"
     },
     {
       "name": "requestToken",
