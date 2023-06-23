@@ -11,6 +11,32 @@
   ],
   "configuration": [
     {
+      "name": "oAuth2AuthenticationType",
+      "label": "OAuth 2.0 Authentication Type",
+      "required": true,
+      "defaultValue": "userAuthentication",
+      "type": "buttonsGroup",
+      "visibility": "config.authenticationMethod == 'oauth2'",
+      "typeOptions": {
+        "allowCustom": false,
+        "possibleValues": [
+          {
+            "label": "User Authentication",
+            "name": "userAuthentication"
+          },
+          {
+            "label": "Application Authentication",
+            "name": "applicationAuthentication"
+          }
+        ]
+      }
+    },
+    {
+      "name": "apiKey",
+      "label": "API Key",
+      "type": "text"
+    },
+    {
       "label": "Auth URL",
       "name": "authUrl",
       "type": "text"
@@ -44,6 +70,7 @@
       "name": "requestToken",
       "label": "Request token",
       "type": "oauth2",
+      "visibility": "config.oAuth2AuthenticationType == 'applicationAuthentication'",
       "typeOptions": {
         "clientId": "config.clientId",
         "clientSecret": "config.clientSecret",
