@@ -81,22 +81,21 @@
       "label": "Access token",
       "type": "label",
       "value": "@config.accessToken",
-      "visibility": "config.authenticationType == 'applicationAuthentication'"
+      "visibility": "!!config.accessToken && config.authenticationType == 'applicationAuthentication'"
     },
     {
       "name": "refreshToken",
       "label": "Refresh token",
       "type": "label",
       "value": "@config.refreshToken",
-      "visibility": "config.authenticationType == 'applicationAuthentication'"
+      "visibility": "!!config.accessToken && config.authenticationType == 'applicationAuthentication'"
     },
     {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
       "type": "label",
-      "value": "config.WEBHOOK_URL+'/authCallback'",
-      "visibility": "config.authenticationMethod == 'oauth2'"
+      "value": "config.WEBHOOK_URL+'/authCallback'"
     },
     {
       "name": "webhooksUrl",
