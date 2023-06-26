@@ -18,7 +18,6 @@ exports.connectUser = function () {
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
                 var config = callbackData;
-                sys.logs.error('Code: ' + JSON.stringify(config.code));
                 var response = svc.http.post({
                     url: config.accessTokenUrl,
                     headers: {
