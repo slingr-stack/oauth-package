@@ -19,7 +19,7 @@ exports.connectUser = function () {
             userConnected: function (originalMessage, callbackData) {
                 var config = callbackData;
                 sys.logs.error('Code: ' + JSON.stringify(config.code));
-                var res = svc.http.post({
+                var response = svc.http.post({
                     url: config.accessTokenUrl,
                     headers: {
                         Accept: "application/json",
@@ -34,8 +34,8 @@ exports.connectUser = function () {
                     }
                 });
                 if(config.id) {
-                    sys.storage.put(config.id +' - access_token', res.access_token);
-                    sys.storage.put(config.id +' - refresh_token', res.refresh_token);
+                    sys.storage.put(config.id +' - access_token', response.access_token);
+                    sys.storage.put(config.id +' - refresh_token', response.refresh_token);
                 } else {
                     sys.logs.error('Configuration ID must be provided to store tokens ',config);
                 }
@@ -45,4 +45,26 @@ exports.connectUser = function () {
             }
         }
     });
+}
+
+exports.refreshToken = function (config) {
+    refreshTokenResponse = svc.http.post({
+        url: config.accessTokenUrl,
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: {
+            client_id: config.get("clientId"),
+            client_secret: config.get("clientSecret"),
+            grant_type: "refresh_token",
+            refresh_token: sys.storage.get(config.id +' - refresh_token')
+        }
+    });
+    if(config.id) {
+        sys.storage.put(config.id +' - access_token', refreshTokenResponse.access_token);
+        sys.storage.put(config.id +' - refresh_token', refreshTokenResponse.refresh_token);
+    } else {
+        sys.logs.error('Configuration ID must be provided to store tokens ',config);
+    }
 }
