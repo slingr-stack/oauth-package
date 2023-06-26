@@ -1,1 +1,1 @@
-# oauth2-package
+# oauth-package
