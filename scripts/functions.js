@@ -13,6 +13,7 @@ exports.connectUser = function () {
             scope: config.get("scope"),
             state: config.get("state"),
             oauthCallback: config.get("oauthCallback"),
+            id: config.get("id")
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
@@ -32,9 +33,12 @@ exports.connectUser = function () {
                         grant_type: "authorization_code"
                     }
                 });
-                sys.storage.put(sys.context.getCurrentUserRecord().id() +' - access_token', res.access_token);
-                sys.storage.put(sys.context.getCurrentUserRecord().id() +' - refresh_token', res.refresh_token);
-
+                if(config.id) {
+                    sys.storage.put(config.id +' - access_token', res.access_token);
+                    sys.storage.put(config.id +' - refresh_token', res.refresh_token);
+                } else {
+                    sys.logs.error('Configuration ID must be provided to store tokens ',config);
+                }
             },
             fail: function (originalMessage, callbackData) {
                 sys.logs.error('Fail callback')

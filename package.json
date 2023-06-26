@@ -11,6 +11,12 @@
   ],
   "configuration": [
     {
+      "label": "Configuration id",
+      "description": "Id used to store tokens",
+      "name": "id",
+      "type": "text"
+    },
+    {
       "name": "authenticationType",
       "label": "OAuth 2.0 Authentication Type",
       "required": true,
