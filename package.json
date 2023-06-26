@@ -17,26 +17,6 @@
       "type": "text"
     },
     {
-      "name": "authenticationType",
-      "label": "OAuth 2.0 Authentication Type",
-      "required": true,
-      "defaultValue": "userAuthentication",
-      "type": "buttonsGroup",
-      "typeOptions": {
-        "allowCustom": false,
-        "possibleValues": [
-          {
-            "label": "User Authentication",
-            "name": "userAuthentication"
-          },
-          {
-            "label": "Application Authentication",
-            "name": "applicationAuthentication"
-          }
-        ]
-      }
-    },
-    {
       "label": "Auth URL",
       "name": "authUrl",
       "type": "text"
@@ -67,34 +47,11 @@
       "type": "text"
     },
     {
-      "name": "requestToken",
-      "label": "Request token",
-      "type": "oauth2",
-      "visibility": "config.authenticationType == 'applicationAuthentication'",
-      "typeOptions": {
-        "clientId": "config.clientId",
-        "clientSecret": "config.clientSecret",
-        "authUrl": "config.authUrl",
-        "accessTokenUrl": "config.accessTokenUrl",
-        "scope": "config.scope",
-        "grantType": "'authorization_code'",
-        "accessToken": "@config.accessToken",
-        "refreshToken": "@config.refreshToken"
-      }
-    },
-    {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
       "type": "label",
       "value": "config.WEBHOOK_URL+'/authCallback'"
-    },
-    {
-      "name": "webhooksUrl",
-      "label": "Webhooks URL",
-      "description": "The URL to configure in webhooks of your GitHub App",
-      "type": "label",
-      "value": "@config.WEBHOOK_URL"
     }
   ],
   "events": [
