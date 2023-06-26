@@ -51,7 +51,7 @@
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
       "type": "label",
-      "value": "config.WEBHOOK_URL+'/authCallback'"
+      "value": "config.AUTH_CALLBACK_URL+'/authCallback'"
     }
   ],
   "events": [
