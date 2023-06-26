@@ -1,0 +1,28 @@
+{
+  "name": "oAuth",
+  "label": {
+    "translation": {
+      "en": "oAuth"
+    }
+  },
+  "places": [
+    "APP"
+  ],
+  "dependencies": [],
+  "byGroups": false,
+  "functions": [
+    {
+      "label": "Connect User",
+      "name": "connectUser",
+      "callbacks": [
+        "userConnected","fail"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "label": "event",
+      "name": "event"
+    }
+  ]
+}
