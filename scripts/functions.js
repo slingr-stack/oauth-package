@@ -49,8 +49,9 @@ exports.connectUser = function () {
 
 exports.refreshToken = function () {
     sys.logs.info('Getting RefreshToken');
+    sys.logs.info(JSON.stringify(config));
     refreshTokenResponse = svc.http.post({
-        url: config.accessTokenUrl,
+        url: config.get("accessTokenUrl"),
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
