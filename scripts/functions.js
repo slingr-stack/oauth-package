@@ -17,6 +17,7 @@ exports.connectUser = function () {
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
+                sys.logs.info('userConnected callback');
                 var config = callbackData;
                 var response = svc.http.post({
                     url: config.accessTokenUrl,
@@ -66,4 +67,30 @@ exports.refreshToken = function (config) {
     } else {
         sys.logs.error('Configuration ID must be provided to store tokens ',config);
     }
+}
+
+exports.testFunction = function (config) {
+    sys.ui.sendMessage({
+        scope: 'uiService:oauth.oAuth',
+        name: 'testFunction',
+        config: {
+            authUrl: config.get("authUrl"),
+            accessTokenUrl: config.get("accessTokenUrl"),
+            clientId: config.get("clientId"),
+            clientSecret: config.get("clientSecret"),
+            scope: config.get("scope"),
+            state: config.get("state"),
+            oauthCallback: config.get("oauthCallback"),
+            id: config.get("id")
+        },
+        callbacks: {
+            userConnected: function (originalMessage, callbackData) {
+                sys.logs.error('userConnected callback (test)');
+                sys.logs.error('original message: '+JSON.stringify(originalMessage));
+                sys.logs.error('callbackData: '+JSON.stringify(callbackData));
+                sys.storage.put('test' +' - access_token', 'test token');
+                sys.storage.put('test' +' - refresh_token', 'test refresh');
+            }
+        }
+    });
 }
