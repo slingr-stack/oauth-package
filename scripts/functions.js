@@ -49,7 +49,7 @@ exports.connectUser = function () {
 
 exports.refreshToken = function () {
     sys.logs.info('Getting RefreshToken');
-    sys.logs.info(JSON.stringify(config));
+    sys.logs.info(JSON.stringify(config.get("id")));
     refreshTokenResponse = svc.http.post({
         url: config.get("accessTokenUrl"),
         headers: {
@@ -60,12 +60,12 @@ exports.refreshToken = function () {
             client_id: config.get("clientId"),
             client_secret: config.get("clientSecret"),
             grant_type: "refresh_token",
-            refresh_token: sys.storage.get(config.id +' - refresh_token')
+            refresh_token: sys.storage.get(config.get("id") +' - refresh_token')
         }
     });
     if(config.id) {
-        sys.storage.put(config.id +' - access_token', refreshTokenResponse.access_token);
-        sys.storage.put(config.id +' - refresh_token', refreshTokenResponse.refresh_token);
+        sys.storage.put(config.get("id") +' - access_token', refreshTokenResponse.access_token);
+        sys.storage.put(config.get("id") +' - refresh_token', refreshTokenResponse.refresh_token);
     } else {
         sys.logs.error('Configuration ID must be provided to store tokens ',config);
     }
