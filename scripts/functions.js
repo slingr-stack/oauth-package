@@ -34,6 +34,7 @@ exports.connectUser = function () {
                     }
                 });
                 if(config.id) {
+                    sys.logs.info('Saving access token and refresh token');
                     sys.storage.put(config.id +' - access_token', response.access_token);
                     sys.storage.put(config.id +' - refresh_token', response.refresh_token);
                 } else {
@@ -48,7 +49,7 @@ exports.connectUser = function () {
 }
 
 exports.refreshToken = function () {
-    sys.logs.info('Getting RefreshToken');
+    sys.logs.info('Getting refresh token');
     sys.logs.info(JSON.stringify(config.get("id")));
     refreshTokenResponse = svc.http.post({
         url: config.get("accessTokenUrl"),
@@ -63,10 +64,7 @@ exports.refreshToken = function () {
             refresh_token: sys.storage.get(config.get("id") +' - refresh_token')
         }
     });
-    if(config.id) {
-        sys.storage.put(config.get("id") +' - access_token', refreshTokenResponse.access_token);
-        sys.storage.put(config.get("id") +' - refresh_token', refreshTokenResponse.refresh_token);
-    } else {
-        sys.logs.error('Configuration ID must be provided to store tokens ',config);
-    }
+    sys.logs.info('Saving access token and refresh token');
+    sys.storage.put(config.get("id") +' - access_token', refreshTokenResponse.access_token);
+    sys.storage.put(config.get("id") +' - refresh_token', refreshTokenResponse.refresh_token);
 }
