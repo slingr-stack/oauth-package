@@ -19,7 +19,7 @@ exports.connectUser = function () {
             userConnected: function (originalMessage, callbackData) {
                 sys.logs.info('userConnected callback');
                 var config = callbackData;
-                var response = svc.http.post({
+                var response = dependencies.http.post({
                     url: config.accessTokenUrl,
                     headers: {
                         Accept: "application/json",
@@ -51,7 +51,7 @@ exports.connectUser = function () {
 exports.refreshToken = function () {
     sys.logs.info('Getting refresh token');
     sys.logs.info(JSON.stringify(config.get("id")));
-    refreshTokenResponse = svc.http.post({
+    refreshTokenResponse = dependencies.http.post({
         url: config.get("accessTokenUrl"),
         headers: {
             "Accept": "application/json",
