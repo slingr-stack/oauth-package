@@ -13,13 +13,14 @@ exports.connectUser = function () {
             scope: config.get("scope"),
             state: config.get("state"),
             oauthCallback: config.get("oauthCallback"),
-            id: config.get("id")
+            id: config.get("id"),
+            http: dependencies.http._name
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
                 sys.logs.info('userConnected callback');
                 var config = callbackData;
-                var response = dependencies.http.post({
+                var response = svc[config.http].post({
                     url: config.accessTokenUrl,
                     headers: {
                         Accept: "application/json",
