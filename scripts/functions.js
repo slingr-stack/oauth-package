@@ -40,7 +40,7 @@ exports.connectUser = function (eventName) {
                     sys.storage.put(config.id +' - access_token', response.access_token);
                     sys.storage.put(config.id +' - refresh_token', response.refresh_token);
                     if(config.eventName) {
-                        sys.events.triggerEvent(config.eventName, {accessToken: response.access_token, refreshToken: response.refresh_token});
+                        sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
                     }
                 } else {
                     sys.logs.error('Configuration ID must be provided to store tokens ',config);
