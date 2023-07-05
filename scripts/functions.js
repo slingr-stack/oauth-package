@@ -1,7 +1,7 @@
 /****************************************************
  OAuth
  ****************************************************/
-exports.connectUser = function () {
+exports.connectUser = function (eventName) {
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
         name: 'connectUser',
@@ -14,7 +14,8 @@ exports.connectUser = function () {
             state: config.get("state"),
             oauthCallback: config.get("oauthCallback"),
             id: config.get("id"),
-            http: dependencies.http._name
+            http: dependencies.http._name,
+            eventName: eventName
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
@@ -38,6 +39,9 @@ exports.connectUser = function () {
                     sys.logs.info('Saving access token and refresh token');
                     sys.storage.put(config.id +' - access_token', response.access_token);
                     sys.storage.put(config.id +' - refresh_token', response.refresh_token);
+                    if(config.eventName) {
+                        sys.events.triggerEvent(config.eventName, {accessToken: response.access_token, refreshToken: response.refresh_token});
+                    }
                 } else {
                     sys.logs.error('Configuration ID must be provided to store tokens ',config);
                 }
