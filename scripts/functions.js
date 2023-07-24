@@ -2,6 +2,8 @@
  OAuth
  ****************************************************/
 exports.connectUser = function (eventName) {
+    sys.logs.info('Getting access token [oauth]');
+    sys.logs.info('[oauth] User id: '+JSON.stringify(config.get("id")));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
         name: 'connectUser',
@@ -19,7 +21,7 @@ exports.connectUser = function (eventName) {
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
-                sys.logs.info('userConnected callback');
+                sys.logs.info('[oauth] userConnected callback');
                 var config = callbackData;
                 var response = svc[config.http].post({
                     url: config.accessTokenUrl,
@@ -36,40 +38,64 @@ exports.connectUser = function (eventName) {
                     }
                 });
                 if(config.id) {
-                    sys.logs.info('Saving access token and refresh token');
+                    sys.logs.info('Saving access token and refresh token [oauth]');
                     sys.storage.put(config.id +' - access_token', response.access_token);
                     sys.storage.put(config.id +' - refresh_token', response.refresh_token);
                     if(config.eventName) {
                         sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
                     }
                 } else {
-                    sys.logs.error('Configuration ID must be provided to store tokens ',config);
+                    sys.logs.error('Configuration id must be provided to store tokens [oauth] ',config);
                 }
             },
             fail: function (originalMessage, callbackData) {
-                sys.logs.error('Fail callback')
+                sys.logs.error('Fail callback [oauth]')
             }
         }
     });
 }
 
-exports.refreshToken = function () {
-    sys.logs.info('Getting refresh token');
-    sys.logs.info(JSON.stringify(config.get("id")));
-    refreshTokenResponse = dependencies.http.post({
-        url: config.get("accessTokenUrl"),
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: {
-            client_id: config.get("clientId"),
-            client_secret: config.get("clientSecret"),
-            grant_type: "refresh_token",
-            refresh_token: sys.storage.get(config.get("id") +' - refresh_token')
+exports.refreshToken = function (eventName) {
+    sys.logs.info('Getting refresh token [oauth]');
+    sys.logs.info('[oauth] User id: '+JSON.stringify(config.get("id")));
+    var configuration= {
+        config: {
+            authUrl: config.get("authUrl"),
+            accessTokenUrl: config.get("accessTokenUrl"),
+            clientId: config.get("clientId"),
+            clientSecret: config.get("clientSecret"),
+            scope: config.get("scope"),
+            state: config.get("state"),
+            oauthCallback: config.get("oauthCallback"),
+            id: config.get("id"),
+            http: dependencies.http._name,
+            eventName: eventName
         }
-    });
-    sys.logs.info('Saving access token and refresh token');
-    sys.storage.put(config.get("id") +' - access_token', refreshTokenResponse.access_token);
-    sys.storage.put(config.get("id") +' - refresh_token', refreshTokenResponse.refresh_token);
+    };
+    if (!!configuration.config.id) {
+        var refreshTokenResponse = svc[configuration.config.http].post({
+            url: configuration.config.accessTokenUrl,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: {
+                client_id: configuration.config.clientId,
+                client_secret: configuration.config.clientSecret,
+                grant_type: "refresh_token",
+                refresh_token: sys.storage.get(configuration.config.id + ' - refresh_token')
+            }
+        });
+        sys.logs.info('Saving access token and refresh token');
+        if (!!refreshTokenResponse && !!refreshTokenResponse.access_token && !!refreshTokenResponse.refresh_token) {
+            sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token);
+            sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token);
+        }
+        else {
+            sys.logs.error('Fail to refresh token [oauth] ', configuration.config.id, refreshTokenResponse);
+        }
+    }
+    else {
+        sys.logs.error('Fail to refresh token [oauth] the id is required: ', configuration.config.id);
+    }
 }
