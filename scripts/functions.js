@@ -90,6 +90,9 @@ exports.refreshToken = function (eventName) {
         if (!!refreshTokenResponse && !!refreshTokenResponse.access_token && !!refreshTokenResponse.refresh_token) {
             sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token);
             sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token);
+            if(configuration.config.eventName) {
+                sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id,accessToken: refreshTokenResponse.access_token, refreshToken: refreshTokenResponse.refresh_token});
+            }
         }
         else {
             sys.logs.error('Fail to refresh token [oauth] ', configuration.config.id, refreshTokenResponse);
