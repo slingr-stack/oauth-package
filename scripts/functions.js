@@ -22,7 +22,7 @@ exports.connectUser = function (eventName) {
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
                 sys.logs.info('[oauth] userConnected callback');
-                var config = callbackData;
+                var config = callbackData.data;
                 var response = svc[config.http].post({
                     url: config.accessTokenUrl,
                     headers: {
