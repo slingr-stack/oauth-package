@@ -27,6 +27,7 @@ service.connectUser = function (message) {
                     }
                 }
                 try {
+                    setTimeout(function() { }, 1000);
                     win.close();
                 } catch (e) {
                     sys.logs.error('Error on connectUser function [oauth], window not closed: '+e);
@@ -36,7 +37,7 @@ service.connectUser = function (message) {
             sys.logs.error('Error on connectUser function [oauth], error on window: '+e);
         }
     };
-    var pollTimer = window.setInterval(function() {intervalFn.apply(self);}, 10000);
+    var pollTimer = window.setInterval(function() {intervalFn.apply(self);}, 2500);
 };
 
 service.testFunction = function (message) {
