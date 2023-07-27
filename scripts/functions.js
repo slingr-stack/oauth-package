@@ -125,7 +125,7 @@ exports.disconnectUser = function (eventName) {
         sys.storage.remove(configuration.config.id + ' - access_token');
         sys.storage.remove(configuration.config.id + ' - refresh_token');
         if(configuration.config.eventName) {
-            sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id,accessToken: refreshTokenResponse.access_token, refreshToken: refreshTokenResponse.refresh_token});
+            sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id});
         }
     }
     else {
