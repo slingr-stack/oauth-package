@@ -31,14 +31,16 @@ service.connectUser = function (message) {
                     win.close();
                 } catch (e) {
                     sys.logs.error('Error on connectUser function [oauth], window not closed: '+e);
+                    service.callback(message, 'fail', config);
                 }
             }
         } catch (e) {
             sys.logs.error('Error on connectUser function [oauth], error on window: '+e);
+            service.callback(message, 'fail', config);
         }
     };
     var pollTimer = window.setInterval(function() {intervalFn.apply(self);}, 2500);
-};
+}
 
 service.testFunction = function (message) {
     var config = message.config;
@@ -46,4 +48,4 @@ service.testFunction = function (message) {
     var win = window.open(url, 'Authorization page', 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=500,height=600,left='+((screen.width/2)-250)+',top='+((screen.height/2)-250)+',');
     console.log('test function arrived ',message);
     service.callback(message, 'userConnected', config);
-};
+}
