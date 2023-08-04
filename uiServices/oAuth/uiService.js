@@ -30,12 +30,12 @@ service.connectUser = function (message) {
                     setTimeout(function() { }, 1000);
                     win.close();
                 } catch (e) {
-                    sys.logs.error('Error on connectUser function [oauth], window not closed: '+e);
+                    console.error('Error on connectUser function [oauth], window not closed: '+e);
                     service.callback(message, 'fail', config);
                 }
             }
         } catch (e) {
-            sys.logs.error('Error on connectUser function [oauth], error on window: '+e);
+            console.error('Error on connectUser function [oauth], error on window: '+e);
             service.callback(message, 'fail', config);
         }
     };
