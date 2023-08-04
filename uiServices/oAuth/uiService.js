@@ -24,19 +24,18 @@ service.connectUser = function (message) {
                         token = url.substring(pos + 5, endIndex);
                         config.code = token;
                         service.callback(message, 'userConnected', config);
+                        try {
+                            setTimeout(function() { }, 1000);
+                            win.close();
+                        } catch (e) {
+                            console.error('Error on connectUser function [oauth], window not closed: '+e);
+                            service.callback(message, 'fail', config);
+                        }
                     }
-                }
-                try {
-                    setTimeout(function() { }, 1000);
-                    win.close();
-                } catch (e) {
-                    console.error('Error on connectUser function [oauth], window not closed: '+e);
-                    service.callback(message, 'fail', config);
                 }
             }
         } catch (e) {
             console.error('Error on connectUser function [oauth], error on window: '+e);
-            service.callback(message, 'fail', config);
         }
     };
     var pollTimer = window.setInterval(function() {intervalFn.apply(self);}, 2500);
