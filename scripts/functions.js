@@ -40,8 +40,8 @@ exports.connectUser = function (eventName) {
                 });
                 if(config.id) {
                     sys.logs.info('[oauth] Saving access token and refresh token');
-                    sys.storage.put(config.id +' - access_token', response.access_token);
-                    sys.storage.put(config.id +' - refresh_token', response.refresh_token);
+                    sys.storage.put(config.id +' - access_token', response.access_token, {encrypt: true});
+                    sys.storage.put(config.id +' - refresh_token', response.refresh_token, {encrypt: true});
                     if(config.eventName) {
                         sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
                     }
@@ -84,13 +84,13 @@ exports.refreshToken = function (eventName) {
                 client_id: configuration.config.clientId,
                 client_secret: configuration.config.clientSecret,
                 grant_type: "refresh_token",
-                refresh_token: sys.storage.get(configuration.config.id + ' - refresh_token')
+                refresh_token: sys.storage.get(configuration.config.id + ' - refresh_token', {decrypt: true})
             }
         });
         sys.logs.info('[oauth] Saving access token and refresh token');
         if (!!refreshTokenResponse && !!refreshTokenResponse.access_token && !!refreshTokenResponse.refresh_token) {
-            sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token);
-            sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token);
+            sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token,{encrypt: true});
+            sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token,{encrypt: true});
             if(configuration.config.eventName) {
                 sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id,accessToken: refreshTokenResponse.access_token, refreshToken: refreshTokenResponse.refresh_token});
             }
