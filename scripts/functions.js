@@ -4,19 +4,20 @@
 
 exports.connectUser = function (eventName) {
     sys.logs.info('[oauth] Getting access token');
-    sys.logs.info('[oauth] User id: '+JSON.stringify(config.get("id")));
+    let pkgConfig = config.get();
+    sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
         name: 'connectUser',
         config: {
-            authUrl: config.get("authUrl"),
-            accessTokenUrl: config.get("accessTokenUrl"),
-            clientId: config.get("clientId"),
-            clientSecret: config.get("clientSecret"),
-            scope: config.get("scope"),
-            state: config.get("state"),
-            oauthCallback: config.get("oauthCallback"),
-            id: config.get("id"),
+            authUrl: pkgConfig.authUrl,
+            accessTokenUrl: pkgConfig.accessTokenUrl,
+            clientId: pkgConfig.clientId,
+            clientSecret: pkgConfig.clientSecret,
+            scope: pkgConfig.scope,
+            state: pkgConfig.state,
+            oauthCallback: pkgConfig.oauthCallback,
+            id: pkgConfig.id,
             http: dependencies.http._name,
             eventName: eventName
         },
@@ -58,17 +59,17 @@ exports.connectUser = function (eventName) {
 
 exports.refreshToken = function (eventName) {
     sys.logs.info('[oauth] Getting refresh token');
-    sys.logs.info('[oauth] User id: '+JSON.stringify(config.get("id")));
+    sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     var configuration= {
         config: {
-            authUrl: config.get("authUrl"),
-            accessTokenUrl: config.get("accessTokenUrl"),
-            clientId: config.get("clientId"),
-            clientSecret: config.get("clientSecret"),
-            scope: config.get("scope"),
-            state: config.get("state"),
-            oauthCallback: config.get("oauthCallback"),
-            id: config.get("id"),
+            authUrl: pkgConfig.authUrl,
+            accessTokenUrl: pkgConfig.accessTokenUrl,
+            clientId: pkgConfig.clientId,
+            clientSecret: pkgConfig.clientSecret,
+            scope: pkgConfig.scope,
+            state: pkgConfig.state,
+            oauthCallback: pkgConfig.oauthCallback,
+            id: pkgConfig.id,
             http: dependencies.http._name,
             eventName: eventName
         }
@@ -106,17 +107,17 @@ exports.refreshToken = function (eventName) {
 
 exports.disconnectUser = function (eventName) {
     sys.logs.info('[oauth] Disconnecting user');
-    sys.logs.info('[oauth] User id: '+JSON.stringify(config.get("id")));
+    sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     var configuration= {
         config: {
-            authUrl: config.get("authUrl"),
-            accessTokenUrl: config.get("accessTokenUrl"),
-            clientId: config.get("clientId"),
-            clientSecret: config.get("clientSecret"),
-            scope: config.get("scope"),
-            state: config.get("state"),
-            oauthCallback: config.get("oauthCallback"),
-            id: config.get("id"),
+            authUrl: pkgConfig.authUrl,
+            accessTokenUrl: pkgConfig.accessTokenUrl,
+            clientId: pkgConfig.clientId,
+            clientSecret: pkgConfig.clientSecret,
+            scope: pkgConfig.scope,
+            state: pkgConfig.state,
+            oauthCallback: pkgConfig.oauthCallback,
+            id: pkgConfig.id,
             http: dependencies.http._name,
             eventName: eventName
         }
