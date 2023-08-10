@@ -4,7 +4,7 @@
 
 exports.connectUser = function (eventName) {
     sys.logs.info('[oauth] Getting access token');
-    let pkgConfig = config.get();
+    var pkgConfig = config.get();
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
@@ -59,6 +59,7 @@ exports.connectUser = function (eventName) {
 
 exports.refreshToken = function (eventName) {
     sys.logs.info('[oauth] Getting refresh token');
+    var pkgConfig = config.get();
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     var configuration= {
         config: {
@@ -107,6 +108,7 @@ exports.refreshToken = function (eventName) {
 
 exports.disconnectUser = function (eventName) {
     sys.logs.info('[oauth] Disconnecting user');
+    var pkgConfig = config.get();
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     var configuration= {
         config: {
