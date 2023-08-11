@@ -78,7 +78,7 @@ exports.refreshToken = function (eventName) {
     if (!!configuration.config.id) {
         var refreshToken = sys.storage.get(configuration.config.id + ' - refresh_token', {decrypt: true})
         if (!refreshToken || refreshToken === '') {
-            sys.logs.warn('[oauth] Fail to refresh access_token, there is no refresh token', configuration.config.id, refreshTokenResponse);
+            sys.logs.warn('[oauth] Fail to refresh access_token, there is no refresh token', configuration.config.id);
             throw new Error('Fail to refresh access_token, there is no refresh token');
         } else {
             var refreshTokenResponse = svc[configuration.config.http].post({
