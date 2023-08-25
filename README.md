@@ -9,7 +9,7 @@
     <tbody>
     <tr>
         <td>OAuth package</td>
-        <td>July 27, 2023</td>
+        <td>August 25, 2023</td>
         <td>Detailed description of the OAuth package.</td>
     </tr>
     </tbody>
@@ -82,12 +82,12 @@ It contains the following properties:
 ## Dependencies
 * HTTP Service (Latest Version)
 
-## About SLINGR
+# About SLINGR
 
 SLINGR is a low-code rapid application development platform that accelerates development, with robust architecture for integrations and executing custom workflows and automation.
 
 [More info about SLINGR](https://slingr.io)
 
-## License
+# License
 
 This package is licensed under the Apache License 2.0. See the `LICENSE` file for more details.
