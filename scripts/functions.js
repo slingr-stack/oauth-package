@@ -25,29 +25,34 @@ exports.connectUser = function (eventName) {
             userConnected: function (originalMessage, callbackData) {
                 sys.logs.info('[oauth] userConnected callback');
                 var config = callbackData.data;
-                var response = svc[config.http].post({
-                    url: config.accessTokenUrl,
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: {
-                        client_id: config.clientId,
-                        client_secret: config.clientSecret,
-                        code: config.code,
-                        redirect_uri: config.oauthCallback,
-                        grant_type: "authorization_code"
+                try {
+                    var response = svc[config.http].post({
+                        url: config.accessTokenUrl,
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: {
+                            client_id: config.clientId,
+                            client_secret: config.clientSecret,
+                            code: config.code,
+                            redirect_uri: config.oauthCallback,
+                            grant_type: "authorization_code"
+                        }
+                    });
+                    if(config.id) {
+                        sys.logs.info('[oauth] Saving access token and refresh token');
+                        sys.storage.put(config.id +' - access_token', response.access_token, {encrypt: true});
+                        sys.storage.put(config.id +' - refresh_token', response.refresh_token, {encrypt: true});
+                        if(config.eventName) {
+                            sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
+                        }
+                    } else {
+                        sys.logs.error('[oauth] Configuration id must be provided to store tokens ',config);
                     }
-                });
-                if(config.id) {
-                    sys.logs.info('[oauth] Saving access token and refresh token');
-                    sys.storage.put(config.id +' - access_token', response.access_token, {encrypt: true});
-                    sys.storage.put(config.id +' - refresh_token', response.refresh_token, {encrypt: true});
-                    if(config.eventName) {
-                        sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
-                    }
-                } else {
-                    sys.logs.error('[oauth] Configuration id must be provided to store tokens ',config);
+                } catch (e) {
+                    sys.logs.error('[oauth] Fail to get access token: '+e);
+                    throw e;
                 }
             },
             fail: function (originalMessage, callbackData) {
@@ -81,29 +86,37 @@ exports.refreshToken = function (eventName) {
             sys.logs.warn('[oauth] Fail to refresh access_token, there is no refresh token', configuration.config.id);
             throw new Error('Fail to refresh access_token, there is no refresh token');
         } else {
-            var refreshTokenResponse = svc[configuration.config.http].post({
-                url: configuration.config.accessTokenUrl,
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: {
-                    client_id: configuration.config.clientId,
-                    client_secret: configuration.config.clientSecret,
-                    grant_type: "refresh_token",
-                    refresh_token: refreshToken
+            try {
+                var refreshTokenResponse = svc[configuration.config.http].post({
+                    url: configuration.config.accessTokenUrl,
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: {
+                        client_id: configuration.config.clientId,
+                        client_secret: configuration.config.clientSecret,
+                        grant_type: "refresh_token",
+                        refresh_token: refreshToken
+                    }
+                });
+                sys.logs.info('[oauth] Saving access token and refresh token');
+                if (!!refreshTokenResponse && !!refreshTokenResponse.access_token && !!refreshTokenResponse.refresh_token) {
+                    sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token, {encrypt: true});
+                    sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token, {encrypt: true});
+                    if (configuration.config.eventName) {
+                        sys.events.triggerEvent(configuration.config.eventName, {
+                            configId: configuration.config.id,
+                            accessToken: refreshTokenResponse.access_token,
+                            refreshToken: refreshTokenResponse.refresh_token
+                        });
+                    }
+                } else {
+                    sys.logs.error('[oauth] Fail to refresh token', configuration.config.id, refreshTokenResponse);
                 }
-            });
-            sys.logs.info('[oauth] Saving access token and refresh token');
-            if (!!refreshTokenResponse && !!refreshTokenResponse.access_token && !!refreshTokenResponse.refresh_token) {
-                sys.storage.put(configuration.config.id + ' - access_token', refreshTokenResponse.access_token,{encrypt: true});
-                sys.storage.put(configuration.config.id + ' - refresh_token', refreshTokenResponse.refresh_token,{encrypt: true});
-                if(configuration.config.eventName) {
-                    sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id,accessToken: refreshTokenResponse.access_token, refreshToken: refreshTokenResponse.refresh_token});
-                }
-            }
-            else {
-                sys.logs.error('[oauth] Fail to refresh token', configuration.config.id, refreshTokenResponse);
+            } catch (e) {
+                sys.logs.error('[oauth] Fail to get refresh token: '+e);
+                throw e;
             }
         }
     }

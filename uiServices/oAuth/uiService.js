@@ -23,12 +23,18 @@ service.connectUser = function (message) {
                         }
                         token = url.substring(pos + 5, endIndex);
                         config.code = token;
-                        service.callback(message, 'userConnected', config);
+                        var h1Element = document.createElement('h1');
                         try {
+                            console.log("Connection successful [oauth]")
+                            h1Element.textContent = 'Successful';
+                            document.body.appendChild(h1Element);
+                            service.callback(message, 'userConnected', config);
                             setTimeout(function() { }, 1000);
                             win.close();
                         } catch (e) {
                             console.error('Error on connectUser function [oauth], window not closed: '+e);
+                            h1Element.textContent = 'Error';
+                            document.body.appendChild(h1Element);
                             service.callback(message, 'fail', config);
                         }
                     }
