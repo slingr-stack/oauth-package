@@ -35,7 +35,7 @@ exports.connectUser = function (eventName) {
                         body: {
                             client_id: config.clientId,
                             client_secret: config.clientSecret,
-                            code: decodeURIComponent(config.code),
+                            code: config.code,
                             redirect_uri: config.oauthCallback,
                             grant_type: "authorization_code"
                         }
