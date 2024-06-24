@@ -180,8 +180,6 @@ exports.testFunction = function (eventName) {
         },
         callbacks: {
             userConnected: function (originalMessage, callbackData) {
-                sys.logs.info('[oauth] userConnected callback');
-                var config = callbackData.data;
                 sys.logs.warn('[oauth] originalMessage: '+JSON.stringify(originalMessage));
                 sys.logs.warn('[oauth] callbackData: '+JSON.stringify(callbackData));
             }
