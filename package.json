@@ -5,7 +5,7 @@
     {
       "type": "service",
       "name": "http",
-      "version": "v1.3.8",
+      "version": "v1.6.3",
       "instanceId": "shared"
     }
   ],
@@ -47,16 +47,16 @@
       "type": "text"
     },
     {
+      "label": "Additional Query String",
+      "name": "additionalQueryString",
+      "type": "text"
+    },
+    {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
       "type": "label",
       "value": "config.AUTH_CALLBACK_URL+'/authCallback'"
-    },
-    {
-      "label": "Additional Query String",
-      "name": "additionalQueryString",
-      "type": "text"
     }
   ],
   "events": [

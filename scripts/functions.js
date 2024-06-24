@@ -5,6 +5,7 @@
 exports.connectUser = function (eventName) {
     sys.logs.info('[oauth] Getting access token');
     var pkgConfig = config.get();
+    sys.logs.debug('[oauth] Package config: '+JSON.stringify(pkgConfig));
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
@@ -159,6 +160,7 @@ exports.disconnectUser = function (eventName) {
 exports.testFunction = function (eventName) {
     sys.logs.info('[oauth] Getting access token');
     var pkgConfig = config.get();
+    sys.logs.debug('[oauth] Package config: '+JSON.stringify(pkgConfig));
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',

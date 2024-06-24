@@ -51,6 +51,7 @@ service.connectUser = function (message) {
 }
 
 service.testFunction = function (message) {
+    setTimeout(function() { }, 5000);
     let config = message.config;
     let url = `${config.authUrl}?response_type=code&client_id=${config.clientId}&state=${config.state}&scope=${encodeURIComponent(config.scope)}&redirect_uri=${encodeURIComponent(config.oauthCallback)}`;
     if (config.additionalQueryString) {
