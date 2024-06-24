@@ -52,6 +52,11 @@
       "description": "The OAuth callback to configure in your App",
       "type": "label",
       "value": "config.AUTH_CALLBACK_URL+'/authCallback'"
+    },
+    {
+      "label": "Additional Query String",
+      "name": "additionalQueryString",
+      "type": "text"
     }
   ],
   "events": [

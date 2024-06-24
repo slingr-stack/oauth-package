@@ -17,6 +17,7 @@ exports.connectUser = function (eventName) {
             scope: pkgConfig.scope,
             state: pkgConfig.state,
             oauthCallback: pkgConfig.oauthCallback,
+            additionalQueryString: pkgConfig.additionalQueryString,
             id: pkgConfig.id,
             http: dependencies.http._name,
             eventName: eventName
