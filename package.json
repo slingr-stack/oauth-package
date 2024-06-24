@@ -5,7 +5,7 @@
     {
       "type": "service",
       "name": "http",
-      "version": "v1.3.8",
+      "version": "v1.6.3",
       "instanceId": "shared"
     }
   ],

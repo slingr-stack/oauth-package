@@ -5,6 +5,7 @@
 exports.connectUser = function (eventName) {
     sys.logs.info('[oauth] Getting access token');
     var pkgConfig = config.get();
+    sys.logs.debug('[oauth] Package config: '+JSON.stringify(pkgConfig));
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
     sys.ui.sendMessage({
         scope: 'uiService:oauth.oAuth',
@@ -153,4 +154,34 @@ exports.disconnectUser = function (eventName) {
     else {
         sys.logs.error('[oauth] Fail to remove token, the id is required: ', configuration.config.id);
     }
+}
+
+exports.testFunction = function (eventName) {
+    sys.logs.info('[oauth] Getting access token');
+    var pkgConfig = config.get();
+    sys.logs.debug('[oauth] Package config: '+JSON.stringify(pkgConfig));
+    sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
+    sys.ui.sendMessage({
+        scope: 'uiService:oauth.oAuth',
+        name: 'testFunction',
+        config: {
+            authUrl: pkgConfig.authUrl,
+            accessTokenUrl: pkgConfig.accessTokenUrl,
+            clientId: pkgConfig.clientId,
+            clientSecret: pkgConfig.clientSecret,
+            scope: pkgConfig.scope,
+            state: pkgConfig.state,
+            oauthCallback: pkgConfig.oauthCallback,
+            additionalQueryString: pkgConfig.additionalQueryString,
+            id: pkgConfig.id,
+            http: dependencies.http._name,
+            eventName: eventName
+        },
+        callbacks: {
+            userConnected: function (originalMessage, callbackData) {
+                sys.logs.warn('[oauth] originalMessage: '+JSON.stringify(originalMessage));
+                sys.logs.warn('[oauth] callbackData: '+JSON.stringify(callbackData));
+            }
+        }
+    });
 }

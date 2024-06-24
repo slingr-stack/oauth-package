@@ -1,13 +1,13 @@
 service.connectUser = function (message) {
     var config = message.config;
-    var url = `${config.authUrl}?response_type=code&client_id=${config.clientId}&state=${config.state}&scope=${encodeURIComponent(config.scope)}&redirect_uri=${encodeURIComponent(config.oauthCallback)}`;
+    var url = `${config.authUrl}?response_type=code&client_id=${config.clientId}&state=${config.state}&scope=${encodeURIComponent(config.scope)}&redirect_uri=${encodeURIComponent(config.oauthCallback)}&access_type=offline`;
     var win = window.open(url, 'Authorization page', 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=500,height=600,left='+((screen.width/2)-250)+',top='+((screen.height/2)-250)+',');
     var intervalFn = function () {
         try {
             if (!win || !win.location) {
                 window.clearInterval(pollTimer);
             } else {
-                if (win.location.href.indexOf('/authCallback') != -1) {
+                if (win.location.href.indexOf('/authCallback') !== -1) {
                     win.innerWidth = 100;
                     win.innerHeight = 100;
                     win.screenX = screen.width;
@@ -48,9 +48,21 @@ service.connectUser = function (message) {
 }
 
 service.testFunction = function (message) {
-    var config = message.config;
-    var url = `${config.authUrl}?response_type=code&client_id=${config.clientId}&state=${config.state}&scope=${encodeURIComponent(config.scope)}&redirect_uri=${encodeURIComponent(config.oauthCallback)}`;
-    var win = window.open(url, 'Authorization page', 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=500,height=600,left='+((screen.width/2)-250)+',top='+((screen.height/2)-250)+',');
-    console.log('test function arrived ',message);
-    service.callback(message, 'userConnected', config);
+    setTimeout(function() {
+        let config = message.config;
+        let url = `${config.authUrl}?response_type=code&client_id=${config.clientId}&state=${config.state}&scope=${encodeURIComponent(config.scope)}&redirect_uri=${encodeURIComponent(config.oauthCallback)}&access_type=offline`;
+        console.log('[oauth] Test function message: ', message);
+        console.log('[oauth] Url: ', url);
+        const popup = window.open(url, 'Authorization page', 'toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=500,height=600,left='+((screen.width/2)-250)+',top='+((screen.height/2)-250)+',');
+        window.addEventListener(
+            "message",
+            (event) => {
+                console.log(event);
+                return event;
+            },
+            false,
+        );
+        console.log(popup);
+        service.callback(message, 'userConnected', config);
+    }, 5000);
 }
