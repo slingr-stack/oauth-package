@@ -47,11 +47,6 @@
       "type": "text"
     },
     {
-      "label": "Additional Query String",
-      "name": "additionalQueryString",
-      "type": "text"
-    },
-    {
       "label": "OAuth callback",
       "name": "oauthCallback",
       "description": "The OAuth callback to configure in your App",
