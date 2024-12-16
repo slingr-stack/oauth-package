@@ -17,13 +17,6 @@
       "callbacks": [
         "userConnected","fail"
       ]
-    },
-    {
-      "label": "Test function",
-      "name": "testFunction",
-      "callbacks": [
-        "userConnected"
-      ]
     }
   ],
   "events": [

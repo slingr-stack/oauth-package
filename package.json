@@ -5,7 +5,7 @@
     {
       "type": "service",
       "name": "http",
-      "version": "v1.6.7",
+      "version": "v1.7.0",
       "instanceId": "shared"
     }
   ],
@@ -56,9 +56,12 @@
   ],
   "events": [
     {
-      "label": "Webhook",
-      "name": "webhook",
-      "description": "Happens when SharePoint sends a webhook to the endpoint."
+      "label": "Connect User",
+      "name": "userConnected"
+    },
+    {
+      "label": "Disconnect User",
+      "name": "userDisconnected"
     }
   ],
   "metadata": [

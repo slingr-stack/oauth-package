@@ -1,19 +1,3 @@
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Last Updated</th>
-        <th>Summary</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>OAuth package</td>
-        <td>August 25, 2023</td>
-        <td>Detailed description of the OAuth package.</td>
-    </tr>
-    </tbody>
-</table>
 
 # Overview
 
@@ -22,7 +6,7 @@ Commonly used as a dependency for other packages.
 
 # Javascript API
 
-The Javascript API of the OAuth package has :
+The Javascript API of the OAuth package has:
 
 ## Shortcuts
 
@@ -80,7 +64,7 @@ It contains the following properties:
 </details>
 
 ## Dependencies
-* HTTP Service (Latest Version)
+* HTTP Service
 
 # About SLINGR
 
