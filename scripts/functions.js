@@ -117,6 +117,7 @@ exports.refreshToken = function (eventName) {
                             accessToken: refreshTokenResponse.access_token,
                             refreshToken: refreshTokenResponse.refresh_token
                         });
+                        sys.events.triggerEvent('oauth:userConnected', configuration);
                     }
                 } else {
                     sys.logs.error('[oauth] Fail to refresh token', configuration.config.id, refreshTokenResponse);
@@ -155,6 +156,7 @@ exports.disconnectUser = function (eventName) {
         sys.storage.remove(configuration.config.id + ' - refresh_token');
         if(configuration.config.eventName) {
             sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id});
+            sys.events.triggerEvent('oauth:userDisconnected', configuration);
         }
     }
     else {
