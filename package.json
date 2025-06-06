@@ -54,16 +54,7 @@
       "value": "config.AUTH_CALLBACK_URL+'/authCallback'"
     }
   ],
-  "events": [
-    {
-      "label": "Connect User",
-      "name": "userConnected"
-    },
-    {
-      "label": "Disconnect User",
-      "name": "userDisconnected"
-    }
-  ],
+  "events": [],
   "metadata": [
     {
       "type": "script",
