@@ -44,7 +44,10 @@ exports.connectUser = function (eventName) {
                     if(config.id) {
                         sys.logs.info('[oauth] Saving access token and refresh token');
                         sys.storage.put(config.id +' - access_token', response.access_token, {encrypt: true});
-                        sys.storage.put(config.id +' - refresh_token', response.refresh_token, {encrypt: true});
+                        // If no refresh token is found, we won't remove the existing one
+                        if (!!response.refresh_token) {
+                            sys.storage.put(config.id +' - refresh_token', response.refresh_token, {encrypt: true});
+                        }
                         if(config.eventName) {
                             sys.events.triggerEvent(config.eventName, {configId: config.id,accessToken: response.access_token, refreshToken: response.refresh_token});
                         }
@@ -132,7 +135,7 @@ exports.refreshToken = function (eventName) {
     }
 }
 
-exports.disconnectUser = function (eventName) {
+exports.disconnectUser = function (eventName, keepRefreshToken) {
     sys.logs.info('[oauth] Disconnecting user');
     var pkgConfig = config.get();
     sys.logs.info('[oauth] User id: '+JSON.stringify(pkgConfig.id));
@@ -152,7 +155,9 @@ exports.disconnectUser = function (eventName) {
     };
     if (!!configuration.config.id) {
         sys.storage.remove(configuration.config.id + ' - access_token');
-        sys.storage.remove(configuration.config.id + ' - refresh_token');
+        if (!keepRefreshToken) {
+            sys.storage.remove(configuration.config.id + ' - refresh_token');
+        }
         if(configuration.config.eventName) {
             sys.events.triggerEvent(configuration.config.eventName, {configId: configuration.config.id});
         }
